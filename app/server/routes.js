@@ -2,16 +2,17 @@
 var CT = require('./modules/country-list');
 var AM = require('./modules/account-manager');
 var EM = require('./modules/email-dispatcher');
+var Control = require('./controls');
 
 module.exports = function(app) {
 
 // main login page //
 	app.get('/', function(req, res){
-	// check if the user's credentials are saved in a cookie //
+		// check if the user's credentials are saved in a cookie //
 		if (req.cookies.user == undefined || req.cookies.pass == undefined){
 			res.render('login', { title: 'Hello - Please Login To Your Account' });
 		}	else{
-	// attempt automatic login //
+			// attempt automatic login //
 			AM.autoLogin(req.cookies.user, req.cookies.pass, function(o){
 				if (o != null){
 				    req.session.user = o;
@@ -42,7 +43,6 @@ module.exports = function(app) {
 	
 	app.get('/home', function(req, res) {
 		if (req.session.user == null){
-	// if user is not logged-in redirect back to login page //
 			res.redirect('/');
 		}	else{
 			res.render('home', {
@@ -184,6 +184,9 @@ module.exports = function(app) {
 		});
 	});
 	
+	// 注册接口控制层
+	new Control(app);
+
 	app.get('*', function(req, res) { res.render('404', { title: 'Page Not Found'}); });
 
 };

@@ -21,6 +21,7 @@
     "express-session": "^1.15.6",
     "moment": "^2.22.2",
     "mongodb": "^3.0.10",
+    "mongoose": "^5.3.6",
     "pug": "^2.0.3",
     "stylus": "^0.54.5"
   },
@@ -28,6 +29,6 @@
     "node": "10.4.0"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "set NODE_ENV=production && node app.js"
   }
 }
